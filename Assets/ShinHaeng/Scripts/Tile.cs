@@ -47,8 +47,4 @@ public class Tile : MonoBehaviour
                 break;
         }
     }
-
-
-=======
->>>>>>> f6f86a88375b783a32cc82ea4b2031975662e2d6
 }
