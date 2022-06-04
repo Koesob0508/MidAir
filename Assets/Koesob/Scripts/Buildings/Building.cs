@@ -4,9 +4,15 @@ using UnityEngine;
 
 public abstract class Building : MonoBehaviour
 {
-    private float health;
+    [SerializeField] protected float health;
+    [SerializeField] private TestIsland mainIsland;
+    [SerializeField] private int mainId;
 
-    public abstract void Activate(Island _island);
+    public virtual void Activate(TestIsland _island)
+    {
+        mainIsland = _island;
+        mainId = mainIsland.Id;
+    }
 
     public virtual void Deactivate()
     {
@@ -23,5 +29,10 @@ public abstract class Building : MonoBehaviour
         {
             Deactivate();
         }
+    }
+
+    public int GetId()
+    {
+        return mainId;
     }
 }
