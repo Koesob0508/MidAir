@@ -23,7 +23,7 @@ public class Tile : MonoBehaviour
 
     public void Init(int id, int x, int z)
     {
-        if (id != -1) return;
+        if (this.id != -1) return;
         SetType(eType.none);
         this.id = id;
         this.x = x;

@@ -8,10 +8,14 @@ public class Island : MonoBehaviour
     [SerializeField] int id = -1;
     [SerializeField] List<List<Tile>> tiles = new List<List<Tile>>();
     [SerializeField] GameObject tilePrefab;
-    [SerializeField] int population;
-    [SerializeField] float speed;
+    [SerializeField] int population = 10;
+    [SerializeField] float speed = 10;
+    [SerializeField] Vector3 purposePosition;
 
     public int Id => id;
+
+    public Vector3 PurposePosition { get => purposePosition; set => purposePosition = value; }
+
 
     //public int Population { get => population; set => population = value; }
     //public float Speed { get => speed; set => speed = value; }
@@ -36,13 +40,16 @@ public class Island : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Move();
+        Look();
     }
 
     public void Init(int id)
     {
-        if (id != -1) return;
+        if (this.id != -1) return;
         this.id = id;
+        speed = 10;
+        population = 10;
     }
 
     /// <summary>
@@ -99,9 +106,24 @@ public class Island : MonoBehaviour
 
     }
 
-    public void Move(Vector3 vector3)
+    void Move()
     {
+        if (Vector3.Distance(transform.position, PurposePosition) > 0.1f)
+        {
+            Debug.Log("Moving " + purposePosition);
+            transform.position = Vector3.MoveTowards(transform.position, purposePosition, speed * Time.deltaTime);
+            
+        }
+        else
+        {
 
+        }
+    }
+
+    void Look()
+    {
+        //transform.LookAt()
+        //Vector3.RotateTowards(PurposePosition)
     }
 
     public void Build(Building building)

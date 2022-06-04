@@ -20,13 +20,24 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         var islands = InstantiateIsland(4);
-        PickPlayer(islands);
+        SetIsland(islands);
     }
 
-    private void PickPlayer(List<Island> islands)
+    private void SetIsland(List<Island> islands)
     {
         int ran = Random.Range(0, islands.Count);
-        islands[ran].gameObject.AddComponent<InputManager>();
+
+        for (int i = 0; i < islands.Count; i++)
+        {
+            if (i == ran)
+            {
+                islands[i].gameObject.AddComponent<InputManager>();
+            }
+            else
+            {
+                islands[i].gameObject.AddComponent<NPC>();
+            }
+        }
     }
 
     /// <summary>
