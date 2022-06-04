@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class Tile : MonoBehaviour
         none = 0, Creatable, Buildable, Building
     }
 
+    [SerializeField] Island island;
     [SerializeField] int id = -1;
     [SerializeField] int x;
     [SerializeField] int z;
@@ -23,13 +25,14 @@ public class Tile : MonoBehaviour
         Type = eType.none;
     }
 
-    public void Init(int id, int x, int z)
+    public void Init(Island island, int z, int x)
     {
         if (this.id != -1) return;
-        SetType(eType.none);
-        this.id = id;
+        this.island = island;
+        this.id = island.Id;
         this.x = x;
         this.z = z;
+        SetType(eType.none);
     }
 
     public void SetType(eType type)
@@ -46,10 +49,27 @@ public class Tile : MonoBehaviour
                 break;
             case eType.Buildable:
                 gameObject.SetActive(true);
+                foreach(var tile in GetNearTiles())
+                {
+                    if (tile.Type == eType.none)
+                    {
+                        tile.SetType(eType.Creatable);
+                    }
+                }
                 break;
             case eType.Building:
                 gameObject.SetActive(true);
                 break;
         }
+    }
+
+    private List<Tile> GetNearTiles()
+    {
+        List<Tile> tiles = new List<Tile>();
+        if (island.GetTileable(z + 0, x - 1)) tiles.Add(island.GetTile(z + 0, x - 1));
+        if (island.GetTileable(z + 0, x + 1)) tiles.Add(island.GetTile(z + 0, x + 1));
+        if (island.GetTileable(z - 1, x + 0)) tiles.Add(island.GetTile(z - 1, x + 0));
+        if (island.GetTileable(z + 1, x + 0)) tiles.Add(island.GetTile(z + 1, x + 0));
+        return tiles;
     }
 }
