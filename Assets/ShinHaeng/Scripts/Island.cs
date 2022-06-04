@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 public class Island : MonoBehaviour
 {
@@ -12,11 +13,22 @@ public class Island : MonoBehaviour
     [SerializeField] int population = 10;
     [SerializeField] float speed = 10;
     [SerializeField] Vector3 purposePosition;
+    [SerializeField] bool isGroundingMode = false;
 
     public int Id => id;
 
     public Vector3 PurposePosition { get => purposePosition; set => purposePosition = value; }
     public List<List<Tile>> Tiles { get => tiles; private set => tiles = value; }
+    public bool IsGroundingMode
+    {
+        get => isGroundingMode; set
+        {
+            isGroundingMode = value;
+            GroundingMode(isGroundingMode);
+        }
+    }
+
+
 
 
     //public int Population { get => population; set => population = value; }
@@ -74,7 +86,7 @@ public class Island : MonoBehaviour
                 var tile = Instantiate(tilePrefab, transform).GetComponent<Tile>();
 
                 tile.name = "Tile_" + z + x;
-                tile.Init(id, x, z);
+                tile.Init(this, z, x);
                 
 
                 Vector3 localPosition;
@@ -104,11 +116,7 @@ public class Island : MonoBehaviour
         //tiles[center][center].SetType(Tile.eType.Building);
     }
 
-    void CreateTile()
-    {
-
-    }
-
+    
     void Move()
     {
         if (Vector3.Distance(transform.position, PurposePosition) > 0.1f)
@@ -127,6 +135,24 @@ public class Island : MonoBehaviour
     {
         //transform.LookAt()
         //Vector3.RotateTowards(PurposePosition)
+    }
+
+    public bool GetTileable(int z, int x)
+    {
+        if (0 <= z && z < tiles.Count &&
+            0 <= x && x < tiles.Count)
+            return true;
+        else
+            return false;
+    }
+
+    public Tile GetTile(int z, int x)
+    {
+        if (0 <= z && z < tiles.Count &&
+            0 <= x && x < tiles.Count)
+            return tiles[z][x];
+        else
+            return null;
     }
 
     public void Build(Tile tile, GameObject buildingPrefab)
@@ -175,6 +201,32 @@ public class Island : MonoBehaviour
         else if (building is BuildingMast)
         {
 
+        }
+    }
+
+    private void GroundingMode(bool isGroundingMode)
+    {
+        if (isGroundingMode)
+        {
+            tiles.ForEach(list =>
+            {
+                list.ForEach(tile =>
+                {
+                    if (tile.Type == Tile.eType.Creatable)
+                        tile.gameObject.SetActive(true);
+                });
+            });
+        }
+        else
+        {
+            tiles.ForEach(list =>
+            {
+                list.ForEach(tile =>
+                {
+                    if (tile.Type == Tile.eType.Creatable)
+                        tile.gameObject.SetActive(false);
+                });
+            });
         }
     }
 }

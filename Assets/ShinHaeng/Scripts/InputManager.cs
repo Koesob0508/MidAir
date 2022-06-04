@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] int skyLayerMask;
     [SerializeField] int tileLayerMask;
     [SerializeField] GameObject currentBuilding;
+    [SerializeField] bool addingGround = false;
 
     private void Awake()
     {
@@ -19,6 +20,11 @@ public class InputManager : MonoBehaviour
         island = GetComponent<Island>();
         skyLayerMask = 1 << LayerMask.NameToLayer("Sky");
         tileLayerMask = 1 << LayerMask.NameToLayer("Tile");
+    }
+
+    private void Start()
+    {
+
     }
 
     // Update is called once per frame
@@ -41,18 +47,25 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (currentBuilding)
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, tileLayerMask))
             {
-                Debug.Log(currentBuilding);
-                if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, tileLayerMask))
+                Debug.Log(hit.collider.name);
+                var tile = hit.collider.GetComponent<Tile>();
+                if (tile.Type == Tile.eType.Creatable)
                 {
-                    Debug.Log(hit.collider.name);
-                    island.Build(hit.collider.GetComponent<Tile>(), currentBuilding);
-                    //Debug.Log(hit.collider.GetComponent<Building>().name);
-                    currentBuilding = null;
+                    tile.SetType(Tile.eType.Buildable);
+                    island.IsGroundingMode = false;
+                }
+                else if (tile.Type == Tile.eType.Buildable)
+                {
+                    if (currentBuilding)
+                    {
+                        island.Build(tile, currentBuilding);
+                        currentBuilding = null;
+                    }
                 }
             }
-            
+
         }
 
         if (Input.GetKeyUp(KeyCode.W))
@@ -71,6 +84,15 @@ public class InputManager : MonoBehaviour
         {
             currentBuilding = GameManager.Mast;
         }
+        if (Input.GetKeyUp(KeyCode.G))
+        {
+            island.IsGroundingMode = !island.IsGroundingMode;
+        }
 
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            currentBuilding = null;
+            island.IsGroundingMode = false;
+        }
     }
 }

@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         {
             if (i == ran)
             {
+                islands[i].gameObject.AddComponent<Character>();
                 islands[i].gameObject.AddComponent<InputManager>();
                 islands[i].name = "Island_Player";
             }
