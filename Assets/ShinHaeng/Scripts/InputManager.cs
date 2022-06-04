@@ -21,6 +21,11 @@ public class InputManager : MonoBehaviour
         tileLayerMask = 1 << LayerMask.NameToLayer("Tile");
     }
 
+    private void Start()
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
