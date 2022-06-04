@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurretMisile : MonoBehaviour
 {
-    private GameObject target;
+    [SerializeField] private GameObject target;
     private Building building;
     private float attackDamage;
     public float speed;
@@ -52,6 +52,7 @@ public class TurretMisile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("´ê¾Ò´Ù");
         if(other.gameObject == target)
         {
             other.gameObject.GetComponent<Building>().GetDamage(building, this.attackDamage);

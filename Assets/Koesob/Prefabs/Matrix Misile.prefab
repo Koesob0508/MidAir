@@ -93,9 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1981067735890833246}
   - component: {fileID: 5271356240898746895}
-  - component: {fileID: 3794864825956431651}
   m_Layer: 0
-  m_Name: Turret Misile
+  m_Name: Matrix Misile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,22 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f3962eecfc813429125104b701465b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 2.5
-  delayTime: 1
---- !u!135 &3794864825956431651
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3048477877626206875}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.05
-  m_Center: {x: 0, y: 0, z: 0}
+  speed: 5
+  delayTime: 3
 --- !u!1 &4549647422796834870
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,6 +142,7 @@ GameObject:
   - component: {fileID: 6431123287441612188}
   - component: {fileID: 5616729958805467571}
   - component: {fileID: 3421006740568697871}
+  - component: {fileID: 102244327948566107}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -229,3 +215,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &102244327948566107
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4549647422796834870}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

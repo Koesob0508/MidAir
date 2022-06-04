@@ -21,9 +21,9 @@ public abstract class Building : MonoBehaviour
 
     public virtual void GetDamage(Building _attackBuilding, float _damage)
     {
-        if (health > _damage)
+        if (this.health > _damage)
         {
-            health -= _damage;
+            this.health -= _damage;
         }
         else
         {

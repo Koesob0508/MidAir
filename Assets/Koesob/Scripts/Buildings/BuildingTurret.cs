@@ -84,7 +84,6 @@ public class BuildingTurret : Building
 
     private void LaunchMisile(GameObject _target, float _attackDamage)
     {
-        Debug.Log("To " + _target.name + "Launch Misile");
         TurretMisile tempMisilie = Instantiate<TurretMisile>(misile, this.transform.position, this.transform.rotation);
         tempMisilie.SetParent(this);
         tempMisilie.SetTarget(_target);
