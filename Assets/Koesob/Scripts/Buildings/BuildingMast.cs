@@ -12,9 +12,9 @@ public class BuildingMast : Building
         this.speed = 10f;
     }
 
-    public override void Activate(Island _island)
+    public override void Activate(Island _island, Tile _tile)
     {
-        base.Activate(_island);
+        base.Activate(_island, _tile);
 
         Debug.Log("Build Mast");
     }

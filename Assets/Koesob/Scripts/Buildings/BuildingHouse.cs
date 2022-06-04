@@ -12,9 +12,9 @@ public class BuildingHouse : Building
         this.population = 2;
     }
 
-    public override void Activate(Island _island)
+    public override void Activate(Island _island, Tile _tile)
     {
-        base.Activate(_island);
+        base.Activate(_island, _tile);
 
         Debug.Log("Build House");
     }

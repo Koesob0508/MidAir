@@ -45,9 +45,9 @@ public class BuildingTurret : Building
         }
     }
 
-    public override void Activate(Island _island)
+    public override void Activate(Island _island, Tile _tile)
     {
-        base.Activate(_island);
+        base.Activate(_island, _tile);
 
         Debug.Log("Build Turret");
     }
