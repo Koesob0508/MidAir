@@ -9,7 +9,6 @@ public class Tile : MonoBehaviour
         none = 0, Creatable, Buildable, Building
     }
 
-<<<<<<< HEAD
     int id = -1;
     int x;
     int z;
@@ -48,8 +47,4 @@ public class Tile : MonoBehaviour
                 break;
         }
     }
-
-
-=======
->>>>>>> f6f86a88375b783a32cc82ea4b2031975662e2d6
 }
