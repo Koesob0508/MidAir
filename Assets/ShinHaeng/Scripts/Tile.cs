@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    enum eType
+    {
+        none = 0, 
+    }
 
 }
