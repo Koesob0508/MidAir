@@ -71,11 +71,14 @@ public class BuildingTurret : Building
         float nearestDistance = float.PositiveInfinity;
         foreach(GameObject enemy in enemyList)
         {
-            float distance = Vector3.Distance(this.transform.position, enemy.transform.position);
-            if(nearestDistance > distance)
+            if(enemy)
             {
-                nearestDistance = distance;
-                resultEnemy = enemy;
+                float distance = Vector3.Distance(this.transform.position, enemy.transform.position);
+                if (nearestDistance > distance)
+                {
+                    nearestDistance = distance;
+                    resultEnemy = enemy;
+                }
             }
         }
 

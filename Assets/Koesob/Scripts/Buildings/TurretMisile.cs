@@ -13,26 +13,37 @@ public class TurretMisile : MonoBehaviour
 
     private void Awake()
     {
-        this.time = 0f;
+        this.time = 0;
     }
 
     private void Start()
     {
         Destroy(this.gameObject, 5f);
-
-        this.transform.LookAt(target.transform);
-        this.transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
     }
 
     private void Update()
     {
-        time += Time.deltaTime;
-        
-        if(time >= delayTime)
+        // time += Time.deltaTime;
+
+        //if (time >= delayTime)
+        //{
+        //    time = 0f;
+        //    if (target)
+        //    {
+        //        Vector3 dir = target.transform.position - this.transform.position;
+        //        this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * speed);
+        //    }
+        //}
+
+        if (target)
         {
-            this.transform.LookAt(target.transform);
-            this.transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            Vector3 dir = target.transform.position - this.transform.position;
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * speed);
         }
+
+
+
+        this.transform.position = Vector3.MoveTowards(this.transform.position, this.transform.position + this.transform.forward, speed * Time.deltaTime);
     }
 
     public void SetParent(Building _building)
@@ -43,6 +54,7 @@ public class TurretMisile : MonoBehaviour
     public void SetTarget(GameObject _target)
     {
         target = _target;
+        this.transform.LookAt(target.transform);
     }
 
     public void SetAttackDamage(float _attackDamage)
@@ -52,8 +64,7 @@ public class TurretMisile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("´ê¾Ò´Ù");
-        if(other.gameObject == target)
+        if (other.gameObject == target)
         {
             other.gameObject.GetComponent<Building>().GetDamage(building, this.attackDamage);
             Destroy(this.gameObject);
