@@ -8,19 +8,23 @@ public class Island : MonoBehaviour
     [SerializeField] int id = -1;
     [SerializeField] List<List<Tile>> tiles = new List<List<Tile>>();
     [SerializeField] GameObject tilePrefab;
+    [SerializeField] int population;
+    [SerializeField] float speed;
 
     public int Id => id;
 
+    //public int Population { get => population; set => population = value; }
+    //public float Speed { get => speed; set => speed = value; }
+
+
     private void Awake()
     {
-        int count = 63;
+        int count = 31;
         int center = count / 2;
 
         tiles = InstantiateTiles(count);
 
-        SetCenterTile(tiles[center][center]);
-
-
+        SetCenterTile(tiles, center);
     }
 
     // Start is called before the first frame update
@@ -77,12 +81,30 @@ public class Island : MonoBehaviour
         return tileList;
     }
 
-    void SetCenterTile(Tile tile)
+    void SetCenterTile(List<List<Tile>> tiles, int center, int size = 3)
     {
-        tile.SetType(Tile.eType.Building);
+        for (int i = 0; i < size; i++ )
+        {
+            for (int j = 0; j < size; j++)
+            {
+                tiles[center + i - (size / 2)][center + j - (size / 2)].SetType(Tile.eType.Buildable);
+            }
+        }
+
+        tiles[center][center].SetType(Tile.eType.Building);
     }
 
     void CreateTile()
+    {
+
+    }
+
+    public void Move(Vector3 vector3)
+    {
+
+    }
+
+    public void Build(Building building)
     {
 
     }

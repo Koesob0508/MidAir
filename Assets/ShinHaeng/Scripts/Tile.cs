@@ -37,13 +37,16 @@ public class Tile : MonoBehaviour
         switch (type)
         {
             case eType.none:
-                
+                gameObject.SetActive(false);
                 break;
             case eType.Creatable:
+                gameObject.SetActive(false);
                 break;
             case eType.Buildable:
+                gameObject.SetActive(true);
                 break;
             case eType.Building:
+                gameObject.SetActive(true);
                 break;
         }
     }
