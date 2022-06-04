@@ -18,6 +18,7 @@ public class NPC : MonoBehaviour
     private void Start()
     {
         Tile findTile = null;
+        Tile coreTile = null;
 
         foreach (var list in island.Tiles)
         {
@@ -30,6 +31,13 @@ public class NPC : MonoBehaviour
                 }
             }
         }
-        island.Build(findTile, GameManager.Wall);
+
+        int center = island.Tiles.Count / 2;
+
+        coreTile = island.Tiles[center][center];
+
+        island.Build(findTile, GameManager.Turret);
+        island.Build(coreTile, GameManager.Core);
+
     }
 }

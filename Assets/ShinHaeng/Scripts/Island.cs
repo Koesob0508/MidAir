@@ -12,7 +12,6 @@ public class Island : MonoBehaviour
     [SerializeField] int population = 10;
     [SerializeField] float speed = 10;
     [SerializeField] Vector3 purposePosition;
-    public UnityAction<Building> destoryBuilding;
 
     public int Id => id;
 
@@ -102,7 +101,7 @@ public class Island : MonoBehaviour
             }
         }
 
-        tiles[center][center].SetType(Tile.eType.Building);
+        //tiles[center][center].SetType(Tile.eType.Building);
     }
 
     void CreateTile()
@@ -141,10 +140,16 @@ public class Island : MonoBehaviour
         var pos = building.transform.localPosition;
         pos.y += building.transform.localScale.y;
         building.transform.localPosition = pos;
+
         building.GetComponent<Building>().Activate(this, tile);
         building.GetComponent<Building>().destroyAction += OnDestroyBuilding;
 
         tile.SetType(Tile.eType.Building);
+    }
+
+    private void OnInstantiateBuilding(Building building)
+    {
+
     }
 
     private void OnDestroyBuilding(Building building)
@@ -161,7 +166,7 @@ public class Island : MonoBehaviour
         }
         else if (building is BuildingCore)
         {
-
+            Destroy(this.gameObject);
         }
         else if (building is BuildingWall)
         {

@@ -23,8 +23,6 @@ public abstract class Building : MonoBehaviour
     public virtual void Deactivate()
     {
         destroyAction?.Invoke(this);
-
-        island.destoryBuilding(this);
         Destroy(this.gameObject);
     }
 
