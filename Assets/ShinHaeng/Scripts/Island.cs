@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Island : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Island : MonoBehaviour
     [SerializeField] int population = 10;
     [SerializeField] float speed = 10;
     [SerializeField] Vector3 purposePosition;
+    public UnityAction<Building> destoryBuilding;
 
     public int Id => id;
 
@@ -139,8 +141,35 @@ public class Island : MonoBehaviour
         var pos = building.transform.localPosition;
         pos.y += building.transform.localScale.y;
         building.transform.localPosition = pos;
-        building.GetComponent<Building>().Activate(this);
+        building.GetComponent<Building>().Activate(this, tile);
+        building.GetComponent<Building>().destroyAction += OnDestroyBuilding;
 
         tile.SetType(Tile.eType.Building);
+    }
+
+    private void OnDestroyBuilding(Building building)
+    {
+        building.Tile.SetType(Tile.eType.Buildable);
+
+        if (building is BuildingTurret)
+        {
+            
+        }    
+        else if (building is BuildingHouse)
+        {
+
+        }
+        else if (building is BuildingCore)
+        {
+
+        }
+        else if (building is BuildingWall)
+        {
+
+        }
+        else if (building is BuildingMast)
+        {
+
+        }
     }
 }

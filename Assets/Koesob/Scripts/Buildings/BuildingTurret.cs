@@ -19,7 +19,7 @@ public class BuildingTurret : Building
     {
         this.health = 200f;
         this.time = 0f;
-        this.attackDamage = 10f;
+        this.attackDamage = 50f;
         this.enemyList = new List<GameObject>();
     }
 
