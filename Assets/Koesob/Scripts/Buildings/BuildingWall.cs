@@ -24,22 +24,22 @@ public class BuildingWall : Building
         rangeSphere.SetParentBuilding(this);
     }
 
-    private void Update()
-    {
-        target = GetNearestEnemy();
+    //private void Update()
+    //{
+    //    target = GetNearestEnemy();
 
-        time += Time.deltaTime;
+    //    time += Time.deltaTime;
 
-        if (time >= delayTime)
-        {
-            time = 0f;
-            if (GetNearestEnemy())
-            {
-                target = GetNearestEnemy();
-                LaunchMisile(target);
-            }
-        }
-    }
+    //    if (time >= delayTime)
+    //    {
+    //        time = 0f;
+    //        if (GetNearestEnemy())
+    //        {
+    //            target = GetNearestEnemy();
+    //            LaunchMisile(target);
+    //        }
+    //    }
+    //}
 
     public override void Activate(Island _island, Tile _tile)
     {

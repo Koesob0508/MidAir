@@ -44,10 +44,10 @@ public class WallMisile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("격추");
         if (other.gameObject == target)
         {
             Destroy(other);
-            Debug.Log("격추");
             Destroy(this.gameObject);
         }
     }
