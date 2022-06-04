@@ -7,6 +7,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] GameObject islandPrefab;
+    [SerializeField] GameObject wall;
+    [SerializeField] GameObject core;
+    [SerializeField] GameObject house;
+    [SerializeField] GameObject turret;
+    [SerializeField] GameObject mast;
+
+    public GameObject Wall { get => wall; private set => wall = value; }
+    public GameObject Core { get => core; private set => core = value; }
+    public GameObject House { get => house; private set => house = value; }
+    public GameObject Turret { get => turret; private set => turret = value; }
+    public GameObject Mast { get => mast; private set => mast = value; }
 
     private void Awake()
     {
@@ -32,10 +43,12 @@ public class GameManager : MonoBehaviour
             if (i == ran)
             {
                 islands[i].gameObject.AddComponent<InputManager>();
+                islands[i].name = "Island_Player";
             }
             else
             {
                 islands[i].gameObject.AddComponent<NPC>();
+                islands[i].name = "Island_NPC_" + i;
             }
         }
     }
@@ -51,7 +64,7 @@ public class GameManager : MonoBehaviour
         {
             var island = Instantiate(islandPrefab);
 
-            float border = 100f;
+            float border = 10f;
             float ranX = Random.Range(-border, border);
             float ranZ = Random.Range(-border, border);
             Vector3 ranPos = new Vector3(ranX, 0, ranZ);

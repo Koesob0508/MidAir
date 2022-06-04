@@ -392,7 +392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.1998422, y: -0.7824066, z: 0.5001848, w: 0.31259918}
-  m_LocalPosition: {x: 15.874102, y: 49.89701, z: 20.349356}
+  m_LocalPosition: {x: 13.724975, y: 45.25757, z: 20.01324}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -429,6 +429,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   islandPrefab: {fileID: 4363328171924664638, guid: 9a8045e8aafb2d544a569d28b60333c5, type: 3}
+  wall: {fileID: 5387783673026236521, guid: 1d222c93bbb516648a91387cc040585f, type: 3}
+  core: {fileID: 4386162004383170572, guid: a5835336794f91b47a87ccb4b479aba3, type: 3}
+  house: {fileID: 5986942238519549516, guid: a12e13718476e81488372dbfe1099a09, type: 3}
+  turret: {fileID: 848948101624019069, guid: d2dbfee15ef44bf458eafc39ebe0279a, type: 3}
+  mast: {fileID: 8767986204312519699, guid: a4cbfe908b62756489a2c80443f0b8e5, type: 3}
 --- !u!4 &1996291424
 Transform:
   m_ObjectHideFlags: 0

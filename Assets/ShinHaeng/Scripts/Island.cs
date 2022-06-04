@@ -15,6 +15,7 @@ public class Island : MonoBehaviour
     public int Id => id;
 
     public Vector3 PurposePosition { get => purposePosition; set => purposePosition = value; }
+    public List<List<Tile>> Tiles { get => tiles; private set => tiles = value; }
 
 
     //public int Population { get => population; set => population = value; }
@@ -23,18 +24,19 @@ public class Island : MonoBehaviour
 
     private void Awake()
     {
-        int count = 31;
-        int center = count / 2;
 
-        tiles = InstantiateTiles(count);
 
-        SetCenterTile(tiles, center);
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        int count = 31;
+        int center = count / 2;
+
+        Tiles = InstantiateTiles(count);
+        SetCenterTile(Tiles, center);
     }
 
     // Update is called once per frame
@@ -126,8 +128,19 @@ public class Island : MonoBehaviour
         //Vector3.RotateTowards(PurposePosition)
     }
 
-    public void Build(Building building)
+    public void Build(Tile tile, GameObject buildingPrefab)
     {
+        if (buildingPrefab == null) return;
+        if (tile.Id != id) return;
+        if (tile.Type != Tile.eType.Buildable) return;
 
+        var building = Instantiate(buildingPrefab, tile.transform);
+
+        var pos = building.transform.localPosition;
+        pos.y += building.transform.localScale.y;
+        building.transform.localPosition = pos;
+        building.GetComponent<Building>().Activate(this);
+
+        tile.SetType(Tile.eType.Building);
     }
 }

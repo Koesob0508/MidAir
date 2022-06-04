@@ -9,16 +9,18 @@ public class Tile : MonoBehaviour
         none = 0, Creatable, Buildable, Building
     }
 
-    int id = -1;
-    int x;
-    int z;
-    eType type;
+    [SerializeField] int id = -1;
+    [SerializeField] int x;
+    [SerializeField] int z;
+    [SerializeField] eType type;
 
     public int Id => id;
 
+    public eType Type { get => type; private set => type = value; }
+
     private void Awake()
     {
-        type = eType.none;
+        Type = eType.none;
     }
 
     public void Init(int id, int x, int z)
@@ -32,7 +34,7 @@ public class Tile : MonoBehaviour
 
     public void SetType(eType type)
     {
-        this.type = type;
+        this.Type = type;
 
         switch (type)
         {
