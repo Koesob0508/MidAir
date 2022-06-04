@@ -8,7 +8,7 @@ public abstract class Building : MonoBehaviour
     [SerializeField] private TestIsland mainIsland;
     [SerializeField] private int mainId;
 
-    public virtual void Activate(TestIsland _island)
+    public virtual void Activate(Island _island)
     {
         mainIsland = _island;
         mainId = mainIsland.Id;
