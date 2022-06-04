@@ -174,7 +174,7 @@ MonoBehaviour:
   island: {fileID: 0}
   tile: {fileID: 0}
   mainId: 0
-  delayTime: 2
+  delayTime: 0.5
   rangeSphere: {fileID: 4331928717161040489}
   misile: {fileID: 5271356240898746895, guid: 4e82766d637411441ba5a71d35779e25, type: 3}
   enemyList: []

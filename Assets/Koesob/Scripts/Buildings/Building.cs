@@ -6,9 +6,9 @@ using UnityEngine.Events;
 public abstract class Building : MonoBehaviour
 {
     [SerializeField] protected float health;
-    [SerializeField] private Island island;
-    [SerializeField] private Tile tile;
-    [SerializeField] private int mainId;
+    [SerializeField] protected Island island;
+    [SerializeField] protected Tile tile;
+    [SerializeField] protected int mainId;
     [SerializeField] public UnityAction<Building> destroyAction;
 
     public Tile Tile { get => tile; private set => tile = value; }

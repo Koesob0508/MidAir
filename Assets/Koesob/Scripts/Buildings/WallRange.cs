@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretRange : MonoBehaviour
+public class WallRange : MonoBehaviour
 {
-    private BuildingTurret parentBuilding;
+    private BuildingWall parentBuilding;
 
-    public void SetParentBuilding(BuildingTurret _building)
+    public void SetParentBuilding(BuildingWall _building)
     {
         parentBuilding = _building;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Building")
+        if (other.tag == "TurretMisile")
         {
-            if(other.GetComponent<Building>().GetId() != parentBuilding.GetId())
+            if (other.GetComponent<TurretMisile>().GetId() != parentBuilding.GetId())
             {
                 parentBuilding.AddEnemyBuilding(other.gameObject);
             }
@@ -26,6 +26,4 @@ public class TurretRange : MonoBehaviour
     {
         parentBuilding.RemoveEnemyBuilding(other.gameObject);
     }
-
-
 }

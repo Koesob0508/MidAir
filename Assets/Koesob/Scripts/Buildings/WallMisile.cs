@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretMisile : MonoBehaviour
+public class WallMisile : MonoBehaviour
 {
     [SerializeField] private GameObject target;
     private Building building;
-    private float attackDamage;
     public float speed;
     public float delayTime;
     private int id;
@@ -24,8 +23,6 @@ public class TurretMisile : MonoBehaviour
             Vector3 dir = target.transform.position - this.transform.position;
             this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * speed);
         }
-
-
 
         this.transform.position = Vector3.MoveTowards(this.transform.position, this.transform.position + this.transform.forward, speed * Time.deltaTime);
     }
@@ -45,16 +42,12 @@ public class TurretMisile : MonoBehaviour
         this.transform.LookAt(target.transform);
     }
 
-    public void SetAttackDamage(float _attackDamage)
-    {
-        attackDamage = _attackDamage;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == target)
         {
-            other.gameObject.GetComponent<Building>().GetDamage(building, this.attackDamage);
+            Destroy(other);
+            Debug.Log("°ÝÃß");
             Destroy(this.gameObject);
         }
     }
