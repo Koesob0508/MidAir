@@ -5,10 +5,10 @@ using UnityEngine;
 public abstract class Building : MonoBehaviour
 {
     [SerializeField] protected float health;
-    [SerializeField] private TestIsland mainIsland;
+    [SerializeField] private Island mainIsland;
     [SerializeField] private int mainId;
 
-    public virtual void Activate(TestIsland _island)
+    public virtual void Activate(Island _island)
     {
         mainIsland = _island;
         mainId = mainIsland.Id;
