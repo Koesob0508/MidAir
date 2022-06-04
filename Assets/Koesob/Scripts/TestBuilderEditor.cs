@@ -31,5 +31,10 @@ public class TestBuilderEditor : Editor
         {
             testBuilder.BuildMast(testBuilder.tileNumber);
         }
+
+        if(GUILayout.Button("Build Core"))
+        {
+            testBuilder.BuildCore(testBuilder.tileNumber);
+        }
     }
 }

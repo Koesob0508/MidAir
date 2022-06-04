@@ -6,7 +6,7 @@ public abstract class Building : MonoBehaviour
 {
     private float health;
 
-    public abstract void Activate();
+    public abstract void Activate(Island _island);
 
     public virtual void Deactivate()
     {
