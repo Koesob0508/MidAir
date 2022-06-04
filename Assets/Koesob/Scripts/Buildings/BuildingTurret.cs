@@ -6,9 +6,11 @@ using UnityEngine;
 public class BuildingTurret : Building
 {
     private float attackDamage;
+    private float time;
+    public float delayTime;
 
     [SerializeField] private TurretRange rangeSphere;
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private TurretMisile misile;
     [SerializeField] private List<GameObject> enemyList;
 
     private GameObject target;
@@ -16,6 +18,7 @@ public class BuildingTurret : Building
     private void Awake()
     {
         this.health = 200f;
+        this.time = 0f;
         this.attackDamage = 10f;
         this.enemyList = new List<GameObject>();
     }
@@ -28,9 +31,21 @@ public class BuildingTurret : Building
     private void Update()
     {
         target = GetNearestEnemy();
+
+        time += Time.deltaTime;
+
+        if(time >= delayTime)
+        {
+            time = 0f;
+            if(GetNearestEnemy())
+            {
+                target = GetNearestEnemy();
+                LaunchMisile(target, attackDamage);
+            }
+        }
     }
 
-    public override void Activate(Island _island)
+    public override void Activate(TestIsland _island)
     {
         base.Activate(_island);
 
@@ -65,5 +80,14 @@ public class BuildingTurret : Building
         }
 
         return resultEnemy;
+    }
+
+    private void LaunchMisile(GameObject _target, float _attackDamage)
+    {
+        Debug.Log("To " + _target.name + "Launch Misile");
+        TurretMisile tempMisilie = Instantiate<TurretMisile>(misile, this.transform.position, this.transform.rotation);
+        tempMisilie.SetParent(this);
+        tempMisilie.SetTarget(_target);
+        tempMisilie.SetAttackDamage(_attackDamage);
     }
 }

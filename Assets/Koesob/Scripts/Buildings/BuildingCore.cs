@@ -9,7 +9,7 @@ public class BuildingCore : Building
         this.health = 1000f;
     }
 
-    public override void Activate(Island _island)
+    public override void Activate(TestIsland _island)
     {
         base.Activate(_island);
 

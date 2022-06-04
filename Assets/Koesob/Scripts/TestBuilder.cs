@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestBuilder : Island
+public class TestBuilder : TestIsland
 {
     public List<Tile> testTileList;
     public Building testTurret;
