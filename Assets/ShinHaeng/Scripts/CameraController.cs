@@ -4,8 +4,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] GameObject player;
+    [SerializeField] bool OnMouseControll = false;
     [SerializeField] float panSpeed = 10f;
-    [SerializeField] float panBorder = 10f;
+    [SerializeField] float panBorderThickness = 10f;
     [SerializeField] float height = 20f;
     [SerializeField] float zDistance = -12f;
 
@@ -32,20 +33,22 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            if (mousePos.x > (Screen.width - panBorder))
+            if (!OnMouseControll) return;
+
+            if (mousePos.x > (Screen.width - panBorderThickness))
             {
                 cameraPos.x += panSpeed * Time.deltaTime;
             }
-            else if (mousePos.x < panBorder)
+            else if (mousePos.x < panBorderThickness)
             {
                 cameraPos.x -= panSpeed * Time.deltaTime;
             }
 
-            if (mousePos.y > (Screen.height - panBorder))
+            if (mousePos.y > (Screen.height - panBorderThickness))
             {
                 cameraPos.z += panSpeed * Time.deltaTime;
             }
-            else if (mousePos.y < panBorder)
+            else if (mousePos.y < panBorderThickness)
             {
                 cameraPos.z -= panSpeed * Time.deltaTime;
             }

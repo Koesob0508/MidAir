@@ -6,6 +6,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    [SerializeField] float border = 300f;
     [SerializeField] GameObject islandPrefab;
     [SerializeField] GameObject wall;
     [SerializeField] GameObject core;
@@ -13,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject turret;
     [SerializeField] GameObject mast;
 
+    public float Border => border;
     public GameObject Wall { get => wall; private set => wall = value; }
     public GameObject Core { get => core; private set => core = value; }
     public GameObject House { get => house; private set => house = value; }
@@ -30,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        var islands = InstantiateIsland(4);
+        var islands = InstantiateIsland(20);
         SetIsland(islands);
     }
 
@@ -49,7 +52,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                islands[i].gameObject.AddComponent<NPC>();
+                islands[i].gameObject.AddComponent<NPC>().SetNPCLevel(Random.Range(1, 30));
                 islands[i].name = "Island_NPC_" + i;
             }
         }
@@ -66,7 +69,7 @@ public class GameManager : MonoBehaviour
         {
             var island = Instantiate(islandPrefab);
 
-            float border = 10f;
+            float border = 100f;
             float ranX = Random.Range(-border, border);
             float ranZ = Random.Range(-border, border);
             Vector3 ranPos = new Vector3(ranX, 0, ranZ);

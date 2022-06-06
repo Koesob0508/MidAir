@@ -15,6 +15,8 @@ public class Island : MonoBehaviour
     [SerializeField] float turnSpeed = 10;
     [SerializeField] Vector3 purposePosition;
     [SerializeField] Vector3 purposeDirection;
+    [SerializeField] Rigidbody Rigidbody;
+    [SerializeField] bool isAddForceMoveType = false;
     [SerializeField] bool isMoving = false;
     [SerializeField] bool isTurning = false;
     [SerializeField] bool isGroundingMode = false;
@@ -37,9 +39,8 @@ public class Island : MonoBehaviour
 
     private void Awake()
     {
+        Rigidbody = GetComponent<Rigidbody>();
 
-
-        
     }
 
     // Start is called before the first frame update
@@ -80,7 +81,7 @@ public class Island : MonoBehaviour
             isTurning = true;
 
             purposePosition = point;
-            purposeDirection = (point - transform.position);//
+            purposeDirection = (point - transform.position);
         }
     }
 
@@ -88,14 +89,27 @@ public class Island : MonoBehaviour
     {
         if (isMoving)
         {
-            if (Vector3.Distance(transform.position, PurposePosition) > 0.01f)
+            if (isAddForceMoveType)
             {
-                Debug.Log("Moving " + purposePosition);
-                transform.position = Vector3.MoveTowards(transform.position, purposePosition, moveSpeed * Time.deltaTime);
+                if (Vector3.Distance(transform.position, PurposePosition) > 0.01f)
+                {
+                    Rigidbody.velocity = (transform.forward * moveSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    isMoving = false;
+                }
             }
             else
             {
-                isMoving = false;
+                if (Vector3.Distance(transform.position, PurposePosition) > 0.01f)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, purposePosition, moveSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    isMoving = false;
+                }
             }
         }
     }
