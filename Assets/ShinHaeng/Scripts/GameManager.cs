@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
                 islands[i].gameObject.AddComponent<Character>();
                 islands[i].gameObject.AddComponent<InputManager>();
                 islands[i].name = "Island_Player";
+                Camera.main.GetComponent<CameraController>().SetPlayer(islands[i].gameObject);
             }
             else
             {
