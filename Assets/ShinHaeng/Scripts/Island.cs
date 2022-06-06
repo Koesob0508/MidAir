@@ -63,7 +63,7 @@ public class Island : MonoBehaviour
     {
         if (this.id != -1) return;
         this.id = id;
-        moveSpeed = 10;
+        moveSpeed = 4;
         turnSpeed = 2;
         population = 10;
     }
