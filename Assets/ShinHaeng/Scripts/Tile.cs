@@ -66,10 +66,10 @@ public class Tile : MonoBehaviour
     private List<Tile> GetNearTiles()
     {
         List<Tile> tiles = new List<Tile>();
-        if (island.GetTileable(z + 0, x - 1)) tiles.Add(island.GetTile(z + 0, x - 1));
-        if (island.GetTileable(z + 0, x + 1)) tiles.Add(island.GetTile(z + 0, x + 1));
-        if (island.GetTileable(z - 1, x + 0)) tiles.Add(island.GetTile(z - 1, x + 0));
-        if (island.GetTileable(z + 1, x + 0)) tiles.Add(island.GetTile(z + 1, x + 0));
+        if (island.IsValidCoordinate(z + 0, x - 1)) tiles.Add(island.GetTile(z + 0, x - 1));
+        if (island.IsValidCoordinate(z + 0, x + 1)) tiles.Add(island.GetTile(z + 0, x + 1));
+        if (island.IsValidCoordinate(z - 1, x + 0)) tiles.Add(island.GetTile(z - 1, x + 0));
+        if (island.IsValidCoordinate(z + 1, x + 0)) tiles.Add(island.GetTile(z + 1, x + 0));
         return tiles;
     }
 }

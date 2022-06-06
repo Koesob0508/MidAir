@@ -38,7 +38,8 @@ public class InputManager : MonoBehaviour
                 Debug.Log(hit.collider.name);
                 var pos = hit.point;
                 pos.y = 0f;
-                island.PurposePosition = pos;
+                island.Move(pos);
+                //island.PurposePosition = pos;
                 //var marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 //marker.transform.position = hit.point;
                 //Destroy(marker, 2f);

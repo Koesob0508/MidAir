@@ -11,8 +11,12 @@ public class Island : MonoBehaviour
     [SerializeField] List<List<Tile>> tiles = new List<List<Tile>>();
     [SerializeField] GameObject tilePrefab;
     [SerializeField] int population = 10;
-    [SerializeField] float speed = 10;
+    [SerializeField] float moveSpeed = 10;
+    [SerializeField] float turnSpeed = 10;
     [SerializeField] Vector3 purposePosition;
+    [SerializeField] Vector3 purposeDirection;
+    [SerializeField] bool isMoving = false;
+    [SerializeField] bool isTurning = false;
     [SerializeField] bool isGroundingMode = false;
 
     public int Id => id;
@@ -28,12 +32,8 @@ public class Island : MonoBehaviour
         }
     }
 
-
-
-
     //public int Population { get => population; set => population = value; }
     //public float Speed { get => speed; set => speed = value; }
-
 
     private void Awake()
     {
@@ -47,7 +47,6 @@ public class Island : MonoBehaviour
     {
         int count = 31;
         int center = count / 2;
-
         Tiles = InstantiateTiles(count);
         SetCenterTile(Tiles, center);
     }
@@ -63,9 +62,60 @@ public class Island : MonoBehaviour
     {
         if (this.id != -1) return;
         this.id = id;
-        speed = 10;
+        moveSpeed = 10;
+        turnSpeed = 2;
         population = 10;
     }
+
+    public void Move(Vector3 point)
+    {
+        if (Vector3.Distance(transform.position, point) <= 0.01f)
+        {
+            isMoving = false;
+            //isTurning = false;
+        }
+        else
+        {
+            isMoving = true;
+            isTurning = true;
+
+            purposePosition = point;
+            purposeDirection = (point - transform.position);//
+        }
+    }
+
+    void Move()
+    {
+        if (isMoving)
+        {
+            if (Vector3.Distance(transform.position, PurposePosition) > 0.01f)
+            {
+                Debug.Log("Moving " + purposePosition);
+                transform.position = Vector3.MoveTowards(transform.position, purposePosition, moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                isMoving = false;
+            }
+        }
+    }
+
+    void Look()
+    {
+        if (isTurning)
+        {
+            if (Vector3.Distance(transform.eulerAngles, purposeDirection) > 0.01f)
+            {
+                this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(purposeDirection), Time.deltaTime * turnSpeed);
+            }
+            else
+            {
+                isTurning = false;
+            }
+        }
+    }
+
+    #region Tile
 
     /// <summary>
     /// 섬 하나가 가질 모든 타일을 미리 생성함.
@@ -102,7 +152,6 @@ public class Island : MonoBehaviour
 
         return tileList;
     }
-
     void SetCenterTile(List<List<Tile>> tiles, int center, int size = 3)
     {
         for (int i = 0; i < size; i++ )
@@ -115,29 +164,7 @@ public class Island : MonoBehaviour
 
         //tiles[center][center].SetType(Tile.eType.Building);
     }
-
-    
-    void Move()
-    {
-        if (Vector3.Distance(transform.position, PurposePosition) > 0.1f)
-        {
-            Debug.Log("Moving " + purposePosition);
-            transform.position = Vector3.MoveTowards(transform.position, purposePosition, speed * Time.deltaTime);
-            
-        }
-        else
-        {
-
-        }
-    }
-
-    void Look()
-    {
-        //transform.LookAt()
-        //Vector3.RotateTowards(PurposePosition)
-    }
-
-    public bool GetTileable(int z, int x)
+    public bool IsValidCoordinate(int z, int x)
     {
         if (0 <= z && z < tiles.Count &&
             0 <= x && x < tiles.Count)
@@ -145,7 +172,6 @@ public class Island : MonoBehaviour
         else
             return false;
     }
-
     public Tile GetTile(int z, int x)
     {
         if (0 <= z && z < tiles.Count &&
@@ -154,7 +180,6 @@ public class Island : MonoBehaviour
         else
             return null;
     }
-
     public void Build(Tile tile, GameObject buildingPrefab)
     {
         if (buildingPrefab == null) return;
@@ -172,12 +197,6 @@ public class Island : MonoBehaviour
 
         tile.SetType(Tile.eType.Building);
     }
-
-    private void OnInstantiateBuilding(Building building)
-    {
-
-    }
-
     private void OnDestroyBuilding(Building building)
     {
         building.Tile.SetType(Tile.eType.Buildable);
@@ -204,6 +223,10 @@ public class Island : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 새 땅을 생성하는 모드를 키거나/끈다.
+    /// </summary>
+    /// <param name="isGroundingMode"></param>
     private void GroundingMode(bool isGroundingMode)
     {
         if (isGroundingMode)
@@ -229,4 +252,7 @@ public class Island : MonoBehaviour
             });
         }
     }
+
+    #endregion
+
 }
